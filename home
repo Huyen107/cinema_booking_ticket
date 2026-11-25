@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Registration Form</title>
+    <style>
+        body {
+            font-family: Arial;
+            background-color: #f2f2f2;
+        }
+        .container {
+            width: 350px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid gray;
+            border-radius: 8px;
+            background-color: white;
+        }
+        h2 { text-align: center; }
+        .field { margin-bottom: 15px; }
+        .field > label { display: block; margin-bottom: 5px; }
+        input[type="text"], input[type="password"], input[type="date"] {
+            width: 100%; padding: 8px; box-sizing: border-box;
+        }
+        .gender label { display: inline; }
+        .error { display: block; color: red; font-size: 13px; }
+        button {
+            width: 100%; padding: 10px;
+            background-color: blue; color: white;
+            border: none; cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>User Registration</h2>
+    <form onsubmit="return validateForm()" novalidate>
+        <div class="field">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username">
+            <span class="error" id="userError"></span>
+        </div>
+        <div class="field">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password">
+            <span class="error" id="passError"></span>
+        </div>
+        <div class="field">
+            <label for="dob">Date of Birth:</label>
+            <input type="date" id="dob" name="dob">
+            <span class="error" id="dobError"></span>
+        </div>
+        <div class="field gender">
+            <span>Gender:</span><br>
+            <input type="radio" id="male" name="gender" value="Male">
+            <label for="male">Male</label>
+            <input type="radio" id="female" name="gender" value="Female">
+            <label for="female">Female</label>
+            <span class="error" id="genderError"></span>
+        </div>
+        <button type="submit">Register</button>
+    </form>
+</div>
+<script>
+function validateForm() {
+    let username = document.getElementById("username").value.trim();
+    let password = document.getElementById("password").value;
+    let dob = document.getElementById("dob").value;
+    let gender = document.getElementsByName("gender");
+    let valid = true;
+
+    document.getElementById("userError").innerHTML = "";
+    document.getElementById("passError").innerHTML = "";
+    document.getElementById("dobError").innerHTML = "";
+    document.getElementById("genderError").innerHTML = "";
+
+    if (username == "") {
+        document.getElementById("userError").innerHTML =
+            "Please enter username";
+        valid = false;
+    }
+    if (password == "") {
+        document.getElementById("passError").innerHTML =
+            "Please enter password";
+        valid = false;
+    }
+if (dob == "") {
+        document.getElementById("dobError").innerHTML =
+            "Please select date of birth";
+        valid = false;
+    }
+    let genderSelected = false;
+    for (let i = 0; i < gender.length; i++) {
+        if (gender[i].checked) {
+            genderSelected = true;
+        }
+    }
+    if (genderSelected == false) {
+        document.getElementById("genderError").innerHTML =
+            "Please select gender";
+        valid = false;
+    }
+    if (valid == true) {
+        alert("Registration Successful!");
+    }
+    return false;
+}
+</script>
+</body>
+</html>
